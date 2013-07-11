@@ -519,18 +519,16 @@ _.extend(Bundle.prototype, {
     /// Javascript
     var codeParts = [];
     _.each(self.js.client, function (js_path) {
-      if(js_path.indexOf('packages') == -1)
-      {
 	codeParts.push(self.files.client[js_path].toString('utf8'));
 
       	delete self.files.client[js_path];
-      }
     });
     self.js.client = [];
 
     var combinedCode = codeParts.join('\n;\n');
-    var finalCode = uglify.minify(
-      combinedCode, {fromString: true, compress: {drop_debugger: false}}).code;
+    // Just blob all the code together
+    var finalCode = combinedCode;//uglify.minify(
+      //combinedCode, {fromString: true, compress: {drop_debugger: false}}).code;
 
     addFile('js', finalCode);
 
