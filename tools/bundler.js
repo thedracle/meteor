@@ -519,9 +519,12 @@ _.extend(Bundle.prototype, {
     /// Javascript
     var codeParts = [];
     _.each(self.js.client, function (js_path) {
-      codeParts.push(self.files.client[js_path].toString('utf8'));
+      if(js_path.indexOf('packages') == -1)
+      {
+	codeParts.push(self.files.client[js_path].toString('utf8'));
 
-      delete self.files.client[js_path];
+      	delete self.files.client[js_path];
+      }
     });
     self.js.client = [];
 
